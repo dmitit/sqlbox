@@ -1,11 +1,5 @@
-import { RootProviders } from './app/RootProviders';
-import Home from './pages/Home';
+import { DefaultProviders } from './core/DefaultProviders';
 
 export default function App() {
-   return (
-      <RootProviders>
-         <Home />
-         <h1 className="text-custom-blue">hello world</h1>
-      </RootProviders>
-   );
+   return <DefaultProviders />;
 }
