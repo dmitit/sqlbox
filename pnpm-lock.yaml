@@ -69,6 +69,9 @@ importers:
       vite:
         specifier: ^6.3.1
         version: 6.3.3(jiti@2.4.2)(lightningcss@1.29.2)(yaml@2.7.1)
+      vite-bundle-analyzer:
+        specifier: ^0.19.0
+        version: 0.19.0
 
 packages:
 
@@ -2731,6 +2734,10 @@ packages:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  vite-bundle-analyzer@0.19.0:
+    resolution: {integrity: sha512-kMslGwnRlYpOCYzda+EUI2rRa5DYCdlbvbrVZO7WvwK1suV/uDFgiD1N5e+woHRsePPInt525wUBWYr1mu0oTQ==}
+    hasBin: true
 
   vite@6.3.3:
     resolution: {integrity: sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw==}
@@ -6315,6 +6322,8 @@ snapshots:
   use-sync-external-store@1.5.0(react@19.1.0):
     dependencies:
       react: 19.1.0
+
+  vite-bundle-analyzer@0.19.0: {}
 
   vite@6.3.3(jiti@2.4.2)(lightningcss@1.29.2)(yaml@2.7.1):
     dependencies:
