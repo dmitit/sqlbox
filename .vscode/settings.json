@@ -4,5 +4,6 @@
    "prettier.configPath": ".prettierrc",
    "prettier.ignorePath": ".prettierignore",
    "prettier.requireConfig": true,
-   "prettier.enable": true
+   "prettier.enable": true,
+   "typescript.preferences.importModuleSpecifier": "project-relative"
 }
