@@ -1,10 +1,10 @@
 import DefaultContainer from '@/ui/DefaultContainer';
 
-export default function SandboxDefaultPage() {
+export default function SandboxEditorPage() {
    return (
       <>
          <DefaultContainer>
-            <h1>default sandbox</h1>
+            <h1>editor sandbox</h1>
          </DefaultContainer>
       </>
    );

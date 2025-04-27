@@ -3,7 +3,7 @@ import SandboxLayout from '@/layouts/SandboxLayout';
 import ContactPage from '@/pages/contact/ContactPage';
 import HomePage from '@/pages/home/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';
-import SandboxDefaultPage from '@/pages/sandbox/SandboxDefaultPage';
+import SandboxEditorPage from '@/pages/sandbox/SandboxEditorPage';
 import SandboxFlowPage from '@/pages/sandbox/SandboxFlowPage';
 import { createBrowserRouter } from 'react-router';
 
@@ -19,7 +19,7 @@ export const router = createBrowserRouter(
                path: 'sandbox',
                element: <SandboxLayout />,
                children: [
-                  { index: true, element: <SandboxDefaultPage /> },
+                  { path: 'editor', element: <SandboxEditorPage /> },
                   { path: 'flow', element: <SandboxFlowPage /> },
                ],
             },

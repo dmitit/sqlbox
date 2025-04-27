@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import clsx from 'clsx';
 import React from 'react';
 
 interface DefaultLogoProps extends React.SVGProps<SVGSVGElement> {
@@ -13,7 +13,7 @@ const DefaultLogo: React.FC<DefaultLogoProps> = ({
    ...props
 }) => (
    <svg
-      className={cn('transition-colors duration-100 ease-out', className)}
+      className={clsx('transition-colors duration-100 ease-out', className)}
       width={typeof size === 'number' ? `${size}px` : size}
       height={typeof size === 'number' ? `${size}px` : size}
       viewBox="0 0 24 24"

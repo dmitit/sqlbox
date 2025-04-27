@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import clsx from 'clsx';
 import { Link, LinkProps } from 'react-router';
 
 interface DefaultLinkProps extends LinkProps {
@@ -14,7 +14,7 @@ const DefaultLink: React.FC<DefaultLinkProps> = ({
    return (
       <Link
          {...props}
-         className={cn(
+         className={clsx(
             'text-inherit transition-all duration-100 ease-out',
             className,
          )}
