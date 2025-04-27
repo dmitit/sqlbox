@@ -1,10 +1,10 @@
 import DefaultContainer from '@/ui/DefaultContainer';
 
-export default function HomePage() {
+export default function SandboxFlowPage() {
    return (
       <>
          <DefaultContainer>
-            <h1>home</h1>
+            <h1>flow sandbox</h1>
          </DefaultContainer>
       </>
    );

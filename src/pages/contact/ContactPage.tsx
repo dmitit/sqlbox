@@ -1,10 +1,10 @@
 import DefaultContainer from '@/ui/DefaultContainer';
 
-export default function HomePage() {
+export default function ContactPage() {
    return (
       <>
          <DefaultContainer>
-            <h1>home</h1>
+            <h1>contact</h1>
          </DefaultContainer>
       </>
    );

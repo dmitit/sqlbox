@@ -1,14 +1,15 @@
+import DefaultHeader from '@/ui/DefaultHeader';
 import { Outlet } from 'react-router';
-import DefaultHeader from './ui/DefaultHeader';
 
-export default function DefaultLayout() {
+function DefaultLayout() {
    return (
       <>
          <DefaultHeader />
          <main>
             <Outlet />
          </main>
-         {/* <CoreFooter /> */}
       </>
    );
 }
+
+export default DefaultLayout;
