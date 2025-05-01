@@ -15,15 +15,15 @@ export const router = createBrowserRouter(
          children: [
             { index: true, element: <HomePage /> },
             { path: 'contact', element: <ContactPage /> },
-            {
-               path: 'sandbox',
-               element: <SandboxLayout />,
-               children: [
-                  { path: 'editor', element: <SandboxEditorPage /> },
-                  { path: 'flow', element: <SandboxFlowPage /> },
-               ],
-            },
             { path: '*', element: <NotFoundPage /> },
+         ],
+      },
+      {
+         path: '/sandbox',
+         element: <SandboxLayout />,
+         children: [
+            { path: 'editor', element: <SandboxEditorPage /> },
+            { path: 'flow', element: <SandboxFlowPage /> },
          ],
       },
    ],

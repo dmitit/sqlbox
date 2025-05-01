@@ -52,7 +52,10 @@ export default function DefaultHeader() {
                         </PrimaryNavLink>
                      </NavbarItem>
                      <NavbarItem>
-                        <PrimaryNavLink to={{ pathname: 'sandbox' }}>
+                        <PrimaryNavLink
+                           target="_blank"
+                           to={{ pathname: 'sandbox' }}
+                        >
                            Sandbox
                         </PrimaryNavLink>
                      </NavbarItem>
