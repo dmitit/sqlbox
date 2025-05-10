@@ -5,7 +5,7 @@ import { Button, Navbar, NavbarContent, NavbarItem } from '@heroui/react';
 const SandboxHeader = () => {
    return (
       <div className="py-[0.5rem] relative">
-         <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-foreground-200" />
+         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground-200" />
          <div>
             <DefaultContainer>
                <Navbar

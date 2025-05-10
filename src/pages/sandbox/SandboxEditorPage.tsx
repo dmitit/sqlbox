@@ -1,6 +1,7 @@
 import QueryInput from '@/features/QueryInput';
 import QueryOutput from '@/features/QueryOutput';
 import SchemaList from '@/features/SchemaList';
+import SandboxSidebar from '@/layouts/sandbox/_components/SandboxSidebar';
 import DefaultResizeHandler from '@/ui/resizable-panels/DefaultResizeHandler';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 
@@ -12,12 +13,10 @@ export default function SandboxEditorPage() {
             // autoSaveId="sandbox-editor-main"
             // storage={localStorage}
          >
-            <Panel
-               defaultSize={20}
-               minSize={10}
-               collapsible
-               className="border-1"
-            >
+            <div className="border-r-[2px] border-foreground-200 w-12 h-full">
+               <SandboxSidebar />
+            </div>
+            <Panel defaultSize={20} minSize={10} collapsible>
                <div className="h-full w-full">
                   <SchemaList />
                </div>

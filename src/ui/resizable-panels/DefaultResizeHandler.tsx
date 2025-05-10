@@ -9,13 +9,11 @@ const DefaultResizeHandler = ({ className }: { className?: string }) => {
       <PanelResizeHandle
          className={clsx(
             className,
-            'bg-foreground-400 transition-all duration-100 ease-out delay-100',
-            dragging
-               ? 'scale-150 bg-foreground-900'
-               : 'hover:scale-150 hover:bg-foreground-900',
+            'bg-foreground-200 transition-all duration-100 ease-out',
+            dragging && 'bg-foreground-800',
          )}
          onDragging={(isDragging) => setDragging(isDragging)}
-         hitAreaMargins={{ coarse: 20, fine: 0 }}
+         hitAreaMargins={{ coarse: 20, fine: 5 }}
       />
    );
 };

@@ -1,6 +1,6 @@
 const SchemaList = () => {
    return (
-      <div className="p-4 border-1">
+      <div className="p-4">
          <h2 className="text-xl">Таблицы</h2>
          <ul>
             <li>Table 1</li>

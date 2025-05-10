@@ -1,5 +1,5 @@
 import DefaultLayout from '@/layouts/DefaultLayout';
-import SandboxLayout from '@/layouts/SandboxLayout';
+import SandboxLayout from '@/layouts/sandbox/SandboxLayout';
 import ContactPage from '@/pages/contact/ContactPage';
 import HomePage from '@/pages/home/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage';

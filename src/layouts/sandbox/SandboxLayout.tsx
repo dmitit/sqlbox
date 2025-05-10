@@ -1,5 +1,5 @@
+import SandboxHeader from '@/layouts/sandbox/_components/SandboxHeader';
 import { useDuckDB } from '@/lib/duckdb/context/useDuckDB';
-import SandboxHeader from '@/ui/SandboxHeader';
 import { CircularProgress } from '@heroui/react';
 import { Outlet } from 'react-router';
 
@@ -20,7 +20,7 @@ function SandboxLayout() {
             <SandboxHeader />
             {/* h-0 задает фикс высоту, чтобы дочерние элементы могли работать через
             h-100%, но нужно придумать решение лучше */}
-            <main className="grow h-0">
+            <main className="grow h-0 flex">
                <Outlet />
             </main>
          </div>
