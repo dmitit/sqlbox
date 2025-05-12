@@ -27,7 +27,10 @@ export default function DefaultHeader() {
                   classNames={{ wrapper: ['px-0'] }}
                >
                   <NavbarBrand>
-                     <NavLink to="sandbox" className="flex gap-1 group">
+                     <NavLink
+                        to="sandbox/editor"
+                        className="flex gap-[1px] group"
+                     >
                         {({ isActive }) => (
                            <>
                               <p className="font-bold text-inherit">SQL</p>
@@ -54,7 +57,7 @@ export default function DefaultHeader() {
                      <NavbarItem>
                         <PrimaryNavLink
                            target="_blank"
-                           to={{ pathname: 'sandbox' }}
+                           to={{ pathname: 'sandbox/editor' }}
                         >
                            Sandbox
                         </PrimaryNavLink>

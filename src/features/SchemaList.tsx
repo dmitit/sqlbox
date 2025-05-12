@@ -1,4 +1,4 @@
-const SchemaList = () => {
+const SchemasList = () => {
    return (
       <div className="p-4">
          <h2 className="text-xl">Таблицы</h2>
@@ -11,4 +11,4 @@ const SchemaList = () => {
    );
 };
 
-export default SchemaList;
+export default SchemasList;
