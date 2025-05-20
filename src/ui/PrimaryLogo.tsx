@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import React from 'react';
 
-interface DefaultLogoProps extends React.SVGProps<SVGSVGElement> {
+interface PrimaryLogoProps extends React.SVGProps<SVGSVGElement> {
    color?: string;
    size?: number | string;
    className?: string;
 }
 
-const DefaultLogo: React.FC<DefaultLogoProps> = ({
+const PrimaryLogo: React.FC<PrimaryLogoProps> = ({
    size = 24,
    className,
    ...props
@@ -29,4 +29,4 @@ const DefaultLogo: React.FC<DefaultLogoProps> = ({
    </svg>
 );
 
-export default DefaultLogo;
+export default PrimaryLogo;

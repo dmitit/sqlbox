@@ -4,7 +4,7 @@ import QueryOutput from '@/features/QueryOutput';
 import SchemasList from '@/features/SchemaList';
 import SandboxEditorSidebar from '@/pages/sandbox/editor/SandboxEditorSidebar';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
-import DefaultResizeHandler from '@/ui/resizable-panels/DefaultResizeHandler';
+import DefaultResizeHandler from '@/ui/resizable-panels/PrimaryResizeHandler';
 import { useEffect, useRef } from 'react';
 import {
    ImperativePanelHandle,

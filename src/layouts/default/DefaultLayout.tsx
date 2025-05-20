@@ -1,4 +1,4 @@
-import DefaultHeader from '@/ui/DefaultHeader';
+import DefaultHeader from '@/layouts/default/_components/DefaultHeader';
 import { Outlet } from 'react-router';
 
 function DefaultLayout() {

@@ -1,4 +1,4 @@
-import DefaultContainer from '@/ui/DefaultContainer';
+import DefaultContainer from '@/ui/PrimaryContainer';
 
 export default function ContactPage() {
    return (

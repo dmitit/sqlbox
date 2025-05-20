@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { PanelResizeHandle } from 'react-resizable-panels';
 
-const DefaultResizeHandler = ({ className }: { className?: string }) => {
+const PrimaryResizeHandler = ({ className }: { className?: string }) => {
    const [dragging, setDragging] = useState(false);
 
    return (
@@ -18,4 +18,4 @@ const DefaultResizeHandler = ({ className }: { className?: string }) => {
    );
 };
 
-export default DefaultResizeHandler;
+export default PrimaryResizeHandler;

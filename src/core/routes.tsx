@@ -1,4 +1,4 @@
-import DefaultLayout from '@/layouts/DefaultLayout';
+import DefaultLayout from '@/layouts/default/DefaultLayout';
 import SandboxLayout from '@/layouts/sandbox/SandboxLayout';
 import ContactPage from '@/pages/contact/ContactPage';
 import HomePage from '@/pages/home/HomePage';

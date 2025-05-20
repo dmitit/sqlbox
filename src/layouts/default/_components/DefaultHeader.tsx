@@ -1,4 +1,4 @@
-import DefaultContainer from '@/ui/DefaultContainer';
+import DefaultContainer from '@/ui/PrimaryContainer';
 import {
    Avatar,
    Dropdown,
@@ -10,7 +10,7 @@ import {
    NavbarContent,
    NavbarItem,
 } from '@heroui/react';
-import DefaultLogo from '@/ui/DefaultLogo';
+import DefaultLogo from '@/ui/PrimaryLogo';
 import clsx from 'clsx';
 import { NavLink } from 'react-router';
 import PrimaryNavLink from '@/ui/PrimaryNavLink';

@@ -1,4 +1,4 @@
-import DefaultLogo from '@/ui/DefaultLogo';
+import DefaultLogo from '@/ui/PrimaryLogo';
 import PrimaryNavLink from '@/ui/PrimaryNavLink';
 import {
    Avatar,

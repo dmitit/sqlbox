@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 
-interface DefaultContainerProps {
+interface PrimaryContainerProps {
    children: React.ReactNode;
    className?: string;
 }
 
-const DefaultContainer = ({ children, className }: DefaultContainerProps) => {
+const PrimaryContainer = ({ children, className }: PrimaryContainerProps) => {
    return (
       <div
          className={clsx(
@@ -18,4 +18,4 @@ const DefaultContainer = ({ children, className }: DefaultContainerProps) => {
    );
 };
 
-export default DefaultContainer;
+export default PrimaryContainer;

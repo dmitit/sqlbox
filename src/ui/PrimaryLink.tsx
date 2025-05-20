@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { Link, LinkProps } from 'react-router';
 
-interface DefaultLinkProps extends LinkProps {
+interface PrimaryLinkProps extends LinkProps {
    children: React.ReactNode;
    className?: string;
 }
 
-const DefaultLink: React.FC<DefaultLinkProps> = ({
+const PrimaryLink: React.FC<PrimaryLinkProps> = ({
    children,
    className,
    ...props
@@ -24,4 +24,4 @@ const DefaultLink: React.FC<DefaultLinkProps> = ({
    );
 };
 
-export default DefaultLink;
+export default PrimaryLink;
