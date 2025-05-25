@@ -54,7 +54,8 @@
    },
    "pnpm": {
       "onlyBuiltDependencies": [
-         "@heroui/shared-utils"
+         "@heroui/shared-utils",
+         "esbuild"
       ]
    }
 }

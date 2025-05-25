@@ -5,15 +5,5 @@
    "prettier.ignorePath": ".prettierignore",
    "prettier.requireConfig": true,
    "prettier.enable": true,
-   "typescript.preferences.importModuleSpecifier": "non-relative",
-   "files.exclude": {
-      "**/.git": false,
-      "**/.svn": true,
-      "**/.hg": true,
-      "**/.DS_Store": true,
-      "**/Thumbs.db": true,
-      "[!s]*/**": true,
-      "s[!r]*/**": true,
-      "sr[!c]*/**": true
-   }
+   "typescript.preferences.importModuleSpecifier": "non-relative"
 }
