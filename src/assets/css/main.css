@@ -7,3 +7,12 @@ body {
    display: flex;
    flex-direction: column;
 }
+
+/* 
+
+if needed
+
+.editor-widget.suggest-widget {
+   color: #ff0000;
+   font-size: 14px;
+} */

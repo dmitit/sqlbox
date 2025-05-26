@@ -1,20 +1,26 @@
-// class DBConnectionService {
-//    private connection: duckdb.AsyncDuckDBConnection | null = null;
+import * as duckdb from '@duckdb/duckdb-wasm';
 
-//    public async initialize() {
-//       // ...инициализация db
-//       this.connection = await this.db.connect();
-//    }
+export class DBConnectionService {
+   private db: duckdb.AsyncDuckDB;
+   private connection: duckdb.AsyncDuckDBConnection | null = null;
 
-//    public async query(sql: string) {
-//       if (!this.connection) throw new Error('No connection');
-//       return this.connection.query(sql);
-//    }
+   constructor(db: duckdb.AsyncDuckDB) {
+      this.db = db;
+   }
 
-//    public async close() {
-//       if (this.connection) {
-//          await this.connection.close();
-//          this.connection = null;
-//       }
-//    }
-// }
+   public async initialize() {
+      this.connection = await this.db.connect();
+   }
+
+   public async query(sql: string) {
+      if (!this.connection) throw new Error('No connection');
+      return this.connection.query(sql);
+   }
+
+   public async close() {
+      if (this.connection) {
+         await this.connection.close();
+         this.connection = null;
+      }
+   }
+}

@@ -15,6 +15,7 @@
       "@duckdb/duckdb-wasm": "1.29.1-dev132.0",
       "@heroui/react": "2.8.0-beta.2",
       "@monaco-editor/react": "^4.7.0",
+      "@reduxjs/toolkit": "^2.8.2",
       "@tailwindcss/vite": "^4.1.4",
       "clsx": "^2.1.1",
       "framer-motion": "^12.9.2",
@@ -22,6 +23,7 @@
       "monaco-editor": "^0.52.2",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
+      "react-redux": "^9.2.0",
       "react-resizable-panels": "^2.1.9",
       "react-router": "^7.5.2",
       "tailwindcss": "^4.1.4"
