@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DBState {
    tables: string[];
+   status: 'idle' | 'pending' | 'fulfilled' | 'error';
 }
 
 const initialState: DBState = {
    tables: [],
+   status: 'idle',
 };
 
 export const dbSlice = createSlice({

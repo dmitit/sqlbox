@@ -1,22 +1,14 @@
-import { DBConnectionService } from '@/services/DBConnectionService';
 import { DBWASMService } from '@/services/DBWASMService';
-import { AsyncDuckDB } from '@duckdb/duckdb-wasm';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const DuckDBContext = createContext<{
-   connection: DBConnectionService | null;
+   db: DBWASMService | null;
    isLoading: boolean;
    error: Error | null;
-}>({
-   connection: null,
-   isLoading: true,
-   error: null,
-});
+}>({ db: null, isLoading: true, error: null });
 
 export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
-   const [connection, setConnection] = useState<DBConnectionService | null>(
-      null,
-   );
+   const [db, setDB] = useState<DBWASMService | null>(null);
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [error, setError] = useState<Error | null>(null);
 
@@ -26,10 +18,7 @@ export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
       const initDuckDB = async () => {
          try {
             await dbwasm.initialize();
-            const db: AsyncDuckDB = dbwasm.db;
-            const connectionService = new DBConnectionService(db);
-            await connectionService.initialize();
-            setConnection(connectionService);
+            setDB(dbwasm);
          } catch (error) {
             console.error('DuckDB provider initialization failed: ', error);
 
@@ -50,16 +39,13 @@ export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
       initDuckDB();
 
       return () => {
-         if (connection) {
-            connection.close();
-         }
          dbwasm.cleanup();
       };
    }, []);
 
    const contextValue = useMemo(
-      () => ({ connection, isLoading, error }),
-      [connection, isLoading, error],
+      () => ({ db, isLoading, error }),
+      [db, isLoading, error],
    );
 
    return (

@@ -1,11 +1,11 @@
-import Editor from '@monaco-editor/react';
 import { Plus, X } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import cn from 'clsx';
-import { PrimaryLoader } from '@/ui/PrimaryLoader';
 import { Button, Kbd } from '@heroui/react';
+import QueryInputEditor from '@/features/query-input/QueryInputEditor';
+import { useRunQuery } from '@/utils/useRunQuery';
 
-type File = {
+export type InputFile = {
    name: string;
    value: string;
 };
@@ -16,13 +16,15 @@ const DEFAULT_FILE = {
 };
 
 const QueryInput = () => {
-   const [files, setFiles] = useState<File[]>([DEFAULT_FILE]);
+   const [files, setFiles] = useState<InputFile[]>([DEFAULT_FILE]);
    const [activeFilename, setActiveFilename] = useState(DEFAULT_FILE.name);
    const [fileCounter, setFileCounter] = useState(1); // отдельный счётчик
+   const runButtonRef = useRef<HTMLButtonElement>(null);
+   const { runQuery } = useRunQuery();
 
    const handleRunQuery = () => {
-      // TODO: logic to run the query
-      console.log('Run query');
+      const a = runQuery('SELECT 1');
+      console.log(a);
    };
 
    const handleTabChange = (name: string) => {
@@ -31,7 +33,7 @@ const QueryInput = () => {
 
    const handleAddFile = () => {
       const filename = `query${fileCounter}.sql`;
-      const newFile: File = {
+      const newFile: InputFile = {
          name: filename,
          value: `-- Add your queries here. ${filename}`,
       };
@@ -124,6 +126,7 @@ const QueryInput = () => {
             </div>
             <div>
                <Button
+                  ref={runButtonRef}
                   variant="solid"
                   className="bg-primary-600 text-white rounded-sm"
                   size="sm"
@@ -139,35 +142,34 @@ const QueryInput = () => {
                </Button>
             </div>
          </div>
-         <Editor
-            theme="light"
-            path={activeFile?.name}
-            defaultLanguage="sql"
-            loading={<PrimaryLoader />}
-            options={{
-               fontSize: 14,
-               minimap: { autohide: true },
-               cursorBlinking: 'smooth',
-               smoothScrolling: true,
-               mouseWheelZoom: true,
-               quickSuggestions: true,
-               parameterHints: { enabled: true },
-               folding: true,
-               links: true,
-               scrollBeyondLastLine: false,
-               padding: {
-                  bottom: 52,
-               },
-            }}
-            value={activeFile?.value}
-            onMount={(editor, monaco) => {
-               editor.focus();
-               editor.addCommand(
-                  monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
-                  () => {
-                     handleRunQuery();
-                  },
-               );
+         <QueryInputEditor
+            activeFile={activeFile}
+            onRunQuery={() => {
+               if (runButtonRef.current) {
+                  const buttonElement = runButtonRef.current;
+
+                  buttonElement.focus();
+
+                  const keyDownEvent = new KeyboardEvent('keydown', {
+                     key: 'Enter',
+                     code: 'Enter',
+                     keyCode: 13,
+                     which: 13,
+                     bubbles: true,
+                     cancelable: true,
+                  });
+                  buttonElement.dispatchEvent(keyDownEvent);
+
+                  const keyUpEvent = new KeyboardEvent('keyup', {
+                     key: 'Enter',
+                     code: 'Enter',
+                     keyCode: 13,
+                     which: 13,
+                     bubbles: true,
+                     cancelable: true,
+                  });
+                  buttonElement.dispatchEvent(keyUpEvent);
+               }
             }}
          />
       </div>

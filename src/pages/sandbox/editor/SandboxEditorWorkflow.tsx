@@ -1,5 +1,5 @@
 import DatabasesList from '@/features/DatabasesList';
-import QueryInput from '@/features/QueryInput';
+import QueryInput from '@/features/query-input/QueryInput';
 import QueryOutput from '@/features/QueryOutput';
 import SchemasList from '@/features/SchemaList';
 import SandboxEditorSidebar from '@/pages/sandbox/editor/SandboxEditorSidebar';

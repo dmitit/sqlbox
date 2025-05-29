@@ -1,9 +1,9 @@
-import { useDuckDB } from '@/core/DuckDBProvider';
+import { useDuckDBConnection } from '@/core/DuckDBConnectionProvider';
 import { setTables } from '@/core/store/db.slice';
 import { useDispatch } from 'react-redux';
 
 export const useRunQuery = () => {
-   const { connection } = useDuckDB();
+   const { connection } = useDuckDBConnection();
    const dispatch = useDispatch();
 
    const runQuery = async (sql: string) => {

@@ -1,12 +1,4 @@
-import { useRunQuery } from '@/utils/useRunQuery';
-
 const SchemasList = () => {
-   const { runQuery } = useRunQuery();
-
-   const a = runQuery('SELECT 1');
-   console.log(a);
-
-   runQuery('SELECT 1');
    return (
       <div className="p-4">
          <h2 className="text-xl">Таблицы</h2>
