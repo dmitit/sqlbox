@@ -25,50 +25,48 @@ export const DuckDBConnectionProvider = ({
    const [error, setError] = useState<Error | null>(null);
 
    useEffect(() => {
-      console.log(db);
       if (isDuckDBLoading) {
          setIsLoading(true);
          return;
       }
 
+      // Handled
       if (duckDBError) {
          setError(
-            new Error(`Failed to initialize DuckDB: ${duckDBError.message}`),
+            new Error(`Failed to connect to DuckDB: ${duckDBError.message}`),
          );
          setIsLoading(false);
          return;
       }
 
+      // Handled
       if (!db) {
          setError(new Error('DuckDB instance is not available.'));
          setIsLoading(false);
          return;
       }
 
-      // db доступен, создаем DBConnectionService
-      const dbConnection = new DBConnectionService(db.db); // Передаем db в конструктор
+      const dbConnection = new DBConnectionService(db.db);
 
       const initConnection = async () => {
-         setIsLoading(true); // Устанавливаем isLoading в true перед инициализацией соединения
+         setIsLoading(true);
          try {
             await dbConnection.initialize();
             setConnection(dbConnection);
-            setError(null); // Сбрасываем ошибку при успешной инициализации
-         } catch (initError) {
-            console.error(
-               'DuckDB connection initialization failed: ',
-               initError,
-            );
-            if (initError instanceof Error) {
+            setError(null);
+         } catch (error) {
+            if (error instanceof Error) {
+               // Handled
                setError(
                   new Error(
-                     `DuckDB connection initialization failed: ${initError.message}`,
+                     `DuckDB connection initialization failed: ${error.message}`,
                   ),
                );
             } else {
+               // Handled
                setError(new Error('DuckDB connection initialization failed'));
             }
-            setConnection(null); // Убедимся, что connection равен null в случае ошибки
+            setConnection(null);
          } finally {
             setIsLoading(false);
          }
@@ -77,21 +75,21 @@ export const DuckDBConnectionProvider = ({
       initConnection();
 
       return () => {
-         // Очистка при размонтировании компонента или изменении db
+         console.log('Closing DuckDB connection:', connection);
          if (connection) {
             connection.close();
          }
-         setConnection(null); // Сбрасываем соединение
+         setConnection(null);
       };
-   }, [db]); // Добавляем зависимости
+   }, [db]);
 
    const contextValue = useMemo(
       () => ({
          connection,
-         isLoading: isLoading || isDuckDBLoading, // Объединяем состояния загрузки
-         error: error || duckDBError, // Объединяем ошибки
+         isLoading: isLoading,
+         error: error,
       }),
-      [connection, isLoading, error, isDuckDBLoading, duckDBError],
+      [connection, isLoading, error],
    );
 
    return (

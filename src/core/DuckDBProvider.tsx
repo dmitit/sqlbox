@@ -5,7 +5,7 @@ const DuckDBContext = createContext<{
    db: DBWASMService | null;
    isLoading: boolean;
    error: Error | null;
-}>({ db: null, isLoading: true, error: null });
+}>({ db: null, isLoading: false, error: null });
 
 export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
    const [db, setDB] = useState<DBWASMService | null>(null);
@@ -20,15 +20,15 @@ export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
             await dbwasm.initialize();
             setDB(dbwasm);
          } catch (error) {
-            console.error('DuckDB provider initialization failed: ', error);
-
             if (error instanceof Error) {
+               // Handled
                setError(
                   new Error(
                      `DuckDB provider initialization failed: ${error.message}`,
                   ),
                );
             } else {
+               // Handled
                setError(new Error('DuckDB provider initialization failed'));
             }
          } finally {

@@ -14,19 +14,30 @@ export class DBWASMService {
    }
 
    async initialize() {
-      const MANUAL_BUNDLES: duckdb.DuckDBBundles = {
-         mvp: { mainModule: mvp_duckdb_wasm, mainWorker: mvp_worker },
-         eh: { mainModule: eh_duckdb_wasm, mainWorker: eh_worker },
-      };
+      try {
+         const MANUAL_BUNDLES: duckdb.DuckDBBundles = {
+            mvp: { mainModule: mvp_duckdb_wasm, mainWorker: mvp_worker },
+            eh: { mainModule: eh_duckdb_wasm, mainWorker: eh_worker },
+         };
 
-      const bundle = await duckdb.selectBundle(MANUAL_BUNDLES);
+         const bundle = await duckdb.selectBundle(MANUAL_BUNDLES);
 
-      if (!bundle.mainWorker) throw new Error('Worker not found');
-      this._worker = new Worker(bundle.mainWorker);
+         // Handled
+         if (!bundle.mainWorker) throw new Error('Worker not found');
+         this._worker = new Worker(bundle.mainWorker);
 
-      const logger = new duckdb.ConsoleLogger();
-      this._db = new duckdb.AsyncDuckDB(logger, this._worker);
-      await this._db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+         const logger = new duckdb.ConsoleLogger();
+         this._db = new duckdb.AsyncDuckDB(logger, this._worker);
+         await this._db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+      } catch (error) {
+         if (error instanceof Error) {
+            // Handled
+            throw new Error(error.message);
+         } else {
+            // Handled
+            throw new Error('DuckDB initialization failed');
+         }
+      }
    }
 
    cleanup() {

@@ -1,22 +1,43 @@
-import SandboxFlowSidebar from '@/pages/sandbox/flow/SandboxFlowSidebar';
+import {
+   DuckDBConnectionProvider,
+   useDuckDBConnection,
+} from '@/core/DuckDBConnectionProvider';
 import { SidebarPanelProvider } from '@/pages/sandbox/flow/SandboxFlowSidebarContext';
-import { Panel, PanelGroup } from 'react-resizable-panels';
+import SandboxFlowWorkflow from '@/pages/sandbox/flow/SandboxFlowWorkflow';
+import { PrimaryLoader } from '@/ui/PrimaryLoader';
+import { addToast } from '@heroui/react';
+import { useEffect } from 'react';
+
+const InnerSandboxFlowPage = () => {
+   const { isLoading, error } = useDuckDBConnection();
+
+   useEffect(() => {
+      if (error) {
+         addToast({
+            title: 'Error',
+            description:
+               error.message || 'An error occurred while connecting to DuckDB.',
+            color: 'danger',
+         });
+      }
+   }, [error]);
+
+   if (isLoading) {
+      return <PrimaryLoader />;
+   }
+
+   return (
+      <SidebarPanelProvider>
+         <SandboxFlowWorkflow />
+      </SidebarPanelProvider>
+   );
+};
 
 const SandboxFlowPage = () => {
    return (
-      <SidebarPanelProvider>
-         <PanelGroup
-            direction="horizontal"
-            // autoSaveId="sandbox-editor-main"
-            // storage={localStorage}
-         >
-            <SandboxFlowSidebar />
-
-            <Panel defaultSize={20} minSize={10} collapsible>
-               <div className="h-full w-full"></div>
-            </Panel>
-         </PanelGroup>
-      </SidebarPanelProvider>
+      <DuckDBConnectionProvider>
+         <InnerSandboxFlowPage />
+      </DuckDBConnectionProvider>
    );
 };
 
