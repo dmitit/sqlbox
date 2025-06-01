@@ -1,12 +1,11 @@
 import { useDuckDB } from '@/core/DuckDBProvider';
 import SandboxHeader from '@/layouts/sandbox/_components/SandboxHeader';
-import { PrimaryLoader } from '@/ui/PrimaryLoader';
 import { addToast } from '@heroui/react';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router';
 
 function SandboxLayout() {
-   const { isLoading, error } = useDuckDB();
+   const { error } = useDuckDB();
 
    useEffect(() => {
       if (error) {
@@ -18,10 +17,6 @@ function SandboxLayout() {
          });
       }
    }, [error]);
-
-   if (isLoading) {
-      return <PrimaryLoader />;
-   }
 
    return (
       <>

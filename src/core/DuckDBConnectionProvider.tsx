@@ -75,13 +75,13 @@ export const DuckDBConnectionProvider = ({
       initConnection();
 
       return () => {
-         console.log('Closing DuckDB connection:', connection);
-         if (connection) {
-            connection.close();
+         console.log('Closing DuckDB connection:', dbConnection);
+         if (dbConnection) {
+            dbConnection.close();
          }
          setConnection(null);
       };
-   }, [db]);
+   }, [db, isDuckDBLoading, duckDBError]);
 
    const contextValue = useMemo(
       () => ({
