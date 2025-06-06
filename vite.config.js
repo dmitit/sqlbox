@@ -8,6 +8,7 @@ const root = path.resolve(__dirname, 'src');
 
 // https://vite.dev/config/
 export default defineConfig({
+   mode: 'development',
    plugins: [react(), tailwindcss(), analyzer({ analyzerMode: 'server' })],
    resolve: {
       alias: {

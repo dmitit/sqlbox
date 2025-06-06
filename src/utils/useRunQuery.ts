@@ -16,8 +16,9 @@ export const useRunQuery = () => {
 
          const timestamp = Date.now();
          const result = await connection.query(sql);
+         console.log(result);
 
-         dispatch(addQuery({ duration: 0, query: sql, timestamp, result }));
+         dispatch(addQuery({ duration: 0, query: sql, timestamp }));
       } catch (error) {
          addToast({
             title: 'Error',

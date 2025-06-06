@@ -6,14 +6,14 @@ export interface OutputMeta {
    name: string;
    duration: number;
    query: string;
-   result: unknown;
+   // result: unknown;
 }
 
 const MAX_QUERIES = 10;
 
 const initialState: OutputMeta[] = [];
 
-export const outputSlice = createSlice({
+const outputSlice = createSlice({
    name: 'output',
    initialState,
    reducers: {
@@ -23,15 +23,15 @@ export const outputSlice = createSlice({
             timestamp: number;
             duration: number;
             query: string;
-            result: unknown;
+            // result: unknown;
          }>,
       ) => {
-         const { timestamp, duration, query, result } = action.payload;
+         const { timestamp, duration, query } = action.payload;
          state.unshift({
             timestamp,
             duration,
             query,
-            result,
+            // result,
             name: 'Result Check',
          });
          if (state.length > MAX_QUERIES) {
