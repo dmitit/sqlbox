@@ -32,8 +32,6 @@ const QueryOutput = () => {
       if (reversedOutputs.length === 0) {
          setActiveOutputIndex(null);
       } else if (outputs.length > prevOutputsLength.current) {
-         console.log(outputs.length, prevOutputsLength.current);
-         console.log('new output added');
          setActiveOutputIndex(outputs.length - 1);
       } else if (
          activeOutputIndex === null ||
@@ -57,7 +55,6 @@ const QueryOutput = () => {
    }, [activeOutputIndex, reversedOutputs]);
 
    const handleOutputChange = (idx: number) => {
-      console.log('handleOutputChange', idx);
       setActiveOutputIndex(idx);
    };
 
