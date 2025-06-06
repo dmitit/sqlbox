@@ -1,7 +1,7 @@
 import { Plus, X } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import cn from 'clsx';
-import { Button, Kbd } from '@heroui/react';
+import { addToast, Button, Kbd } from '@heroui/react';
 import QueryInputEditor from '@/features/query-input/QueryInputEditor';
 import { useRunQuery } from '@/utils/useRunQuery';
 
@@ -12,65 +12,76 @@ export type InputFile = {
 
 const DEFAULT_FILE = {
    name: 'query.sql',
-   value: 'SELECT * FROM table_name;',
+   value: 'SELECT 1;',
 };
+
+const MAX_FILES = 6;
 
 const QueryInput = () => {
    const [files, setFiles] = useState<InputFile[]>([DEFAULT_FILE]);
-   const [activeFilename, setActiveFilename] = useState(DEFAULT_FILE.name);
+   const [activeFileIndex, setActiveFileIndex] = useState(0);
    const [fileCounter, setFileCounter] = useState(1); // отдельный счётчик
-   const runButtonRef = useRef<HTMLButtonElement>(null);
+   // const runButtonRef = useRef<HTMLButtonElement>(null);
    const { runQuery } = useRunQuery();
 
-   const handleRunQuery = () => {
-      const a = runQuery('SELECT 1');
-      console.log(a);
+   const activeFile = files[activeFileIndex];
+
+   const handleRunQuery = async () => {
+      await runQuery(activeFile.value);
    };
 
-   const handleTabChange = (name: string) => {
-      setActiveFilename(name);
+   const handleTabChange = (idx: number) => {
+      setActiveFileIndex(idx);
    };
 
    const handleAddFile = () => {
+      if (files.length >= MAX_FILES) {
+         addToast({
+            title: 'Not so fast!',
+            description: 'Sorry, we work on this feature',
+         });
+         return;
+      }
       const filename = `query${fileCounter}.sql`;
       const newFile: InputFile = {
          name: filename,
          value: `-- Add your queries here. ${filename}`,
       };
       setFiles((prev) => [...prev, newFile]);
-      setActiveFilename(newFile.name);
+      setActiveFileIndex(files.length);
       setFileCounter((prev) => prev + 1); // увеличиваем только при создании
    };
 
-   const handleRemoveFile = (name: string) => {
+   const handleRemoveFile = (idx: number) => {
       setFiles((prev) => {
-         const filtered = prev.filter((file) => file.name !== name);
-         if (name === activeFilename && filtered.length > 0) {
-            setActiveFilename(filtered[filtered.length - 1].name);
-         } else if (filtered.length === 0) {
-            setActiveFilename(DEFAULT_FILE.name);
+         const filtered = prev.filter((_, i) => i !== idx);
+         if (filtered.length === 0) {
             setFileCounter(1);
+            setActiveFileIndex(0);
             return [DEFAULT_FILE];
+         }
+         if (idx === activeFileIndex) {
+            setActiveFileIndex(Math.max(0, idx - 1));
+         } else if (idx < activeFileIndex) {
+            setActiveFileIndex((prev) => prev - 1);
          }
          return filtered;
       });
    };
-
-   const activeFile = files.find((file) => file.name === activeFilename);
 
    return (
       <div className="h-full flex flex-col">
          <div className="flex justify-between pr-3 items-center border-b border-foreground-200 bg-background">
             <div className="flex">
                <div className="flex">
-                  {files.map((file) => (
+                  {files.map((file, idx) => (
                      <button
                         type="button"
-                        onClick={() => handleTabChange(file.name)}
+                        onClick={() => handleTabChange(idx)}
                         key={file.name}
                         className={cn(
-                           'relative flex items-center gap-2 px-4 py-2 transition-all border-0 border-x-1 border-x-foreground-200 border-t-3 border-transparent outline-none200',
-                           activeFilename === file.name
+                           'relative flex items-center gap-2 px-4 py-2 transition-all border-0 border-x-1 border-x-foreground-200 border-t-3 border-transparent outline-none',
+                           activeFile.name === file.name
                               ? 'bg-background border-t-primary cursor-default'
                               : 'text-foreground-400 hover:text-foreground-700 cursor-pointer',
                         )}
@@ -100,7 +111,7 @@ const QueryInput = () => {
                            className="group cursor-pointer bg-transparent text-foreground-500 hover:text-foreground-900 transition-colors"
                            onClick={(e) => {
                               e.stopPropagation();
-                              handleRemoveFile(file.name);
+                              handleRemoveFile(idx);
                            }}
                         >
                            <div className="p-0.5 group-hover:bg-foreground-200">
@@ -126,11 +137,14 @@ const QueryInput = () => {
             </div>
             <div>
                <Button
-                  ref={runButtonRef}
+                  // ref={runButtonRef}
                   variant="solid"
                   className="bg-primary-600 text-white rounded-sm"
                   size="sm"
                   onPress={handleRunQuery}
+                  isDisabled={
+                     activeFile.value.trim() === '' || !activeFile.value
+                  }
                >
                   <div className="flex items-center gap-2">
                      <span>Run</span>
@@ -144,33 +158,45 @@ const QueryInput = () => {
          </div>
          <QueryInputEditor
             activeFile={activeFile}
-            onRunQuery={() => {
-               if (runButtonRef.current) {
-                  const buttonElement = runButtonRef.current;
-
-                  buttonElement.focus();
-
-                  const keyDownEvent = new KeyboardEvent('keydown', {
-                     key: 'Enter',
-                     code: 'Enter',
-                     keyCode: 13,
-                     which: 13,
-                     bubbles: true,
-                     cancelable: true,
-                  });
-                  buttonElement.dispatchEvent(keyDownEvent);
-
-                  const keyUpEvent = new KeyboardEvent('keyup', {
-                     key: 'Enter',
-                     code: 'Enter',
-                     keyCode: 13,
-                     which: 13,
-                     bubbles: true,
-                     cancelable: true,
-                  });
-                  buttonElement.dispatchEvent(keyUpEvent);
-               }
+            onChange={(value) => {
+               setFiles((prev) => {
+                  return prev.map((file, idx) =>
+                     idx === activeFileIndex
+                        ? { ...file, value: value || '' }
+                        : file,
+                  );
+               });
             }}
+            // onRunQuery={() => {
+            //    if (!activeFile.value || activeFile.value.trim() === '') {
+            //       return;
+            //    }
+            //    if (runButtonRef.current) {
+            //       const buttonElement = runButtonRef.current;
+
+            //       buttonElement.focus();
+
+            //       const keyDownEvent = new KeyboardEvent('keydown', {
+            //          key: 'Enter',
+            //          code: 'Enter',
+            //          keyCode: 13,
+            //          which: 13,
+            //          bubbles: true,
+            //          cancelable: true,
+            //       });
+            //       buttonElement.dispatchEvent(keyDownEvent);
+
+            //       const keyUpEvent = new KeyboardEvent('keyup', {
+            //          key: 'Enter',
+            //          code: 'Enter',
+            //          keyCode: 13,
+            //          which: 13,
+            //          bubbles: true,
+            //          cancelable: true,
+            //       });
+            //       buttonElement.dispatchEvent(keyUpEvent);
+            //    }
+            // }}
          />
       </div>
    );

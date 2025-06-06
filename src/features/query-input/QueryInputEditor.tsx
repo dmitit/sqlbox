@@ -1,15 +1,17 @@
-import Editor from '@monaco-editor/react';
+import Editor, { OnChange } from '@monaco-editor/react';
 import { PrimaryLoader } from '@/ui/PrimaryLoader';
 import { InputFile } from '@/features/query-input/QueryInput';
 
 interface QueryInputEditorProps {
-   activeFile: InputFile | undefined;
-   onRunQuery: () => void;
+   activeFile: InputFile;
+   // onRunQuery: () => void;
+   onChange: OnChange;
 }
 
 const QueryInputEditor = ({
    activeFile,
-   onRunQuery,
+   // onRunQuery,
+   onChange,
 }: QueryInputEditorProps) => {
    return (
       <Editor
@@ -32,15 +34,16 @@ const QueryInputEditor = ({
                bottom: 52,
             },
          }}
-         value={activeFile?.value}
-         onMount={(editor, monaco) => {
+         value={activeFile.value}
+         onChange={onChange}
+         onMount={(editor) => {
             editor.focus();
-            editor.addCommand(
-               monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
-               () => {
-                  onRunQuery();
-               },
-            );
+            // editor.addCommand(
+            //    monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+            //    () => {
+            //       onRunQuery();
+            //    },
+            // );
          }}
       />
    );

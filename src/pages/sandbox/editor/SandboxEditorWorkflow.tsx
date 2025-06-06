@@ -1,6 +1,6 @@
 import DatabasesList from '@/features/DatabasesList';
 import QueryInput from '@/features/query-input/QueryInput';
-import QueryOutput from '@/features/QueryOutput';
+import QueryOutput from '@/features/query-output/QueryOutput';
 import SchemasList from '@/features/SchemaList';
 import SandboxEditorSidebar from '@/pages/sandbox/editor/SandboxEditorSidebar';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
