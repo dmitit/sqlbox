@@ -19,7 +19,7 @@ export class DBConnectionService {
       if (!this.connection) throw new Error('No connection');
 
       const result = await this.connection.query<T>(sql);
-      const rows = result.toArray().map((row) => row.toJSON() as T);
+      const rows = result.toArray().map((row) => row.toJSON());
 
       return rows;
    }

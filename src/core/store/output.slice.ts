@@ -1,15 +1,19 @@
 import { RootState } from '@/core/store/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export interface OutputResult {
+   [key: string]: string | number | boolean | null | undefined;
+}
+
 export interface OutputMeta {
    timestamp: number;
    name: string;
    duration: number;
    query: string;
-   // result: unknown;
+   result: OutputResult[];
 }
 
-const MAX_QUERIES = 10;
+const MAX_QUERIES = 6;
 
 const initialState: OutputMeta[] = [];
 
@@ -23,15 +27,15 @@ const outputSlice = createSlice({
             timestamp: number;
             duration: number;
             query: string;
-            // result: unknown;
+            result: OutputResult[];
          }>,
       ) => {
-         const { timestamp, duration, query } = action.payload;
+         const { timestamp, duration, query, result } = action.payload;
          state.unshift({
             timestamp,
             duration,
             query,
-            // result,
+            result,
             name: 'Result Check',
          });
          if (state.length > MAX_QUERIES) {

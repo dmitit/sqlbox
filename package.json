@@ -18,6 +18,8 @@
       "@monaco-editor/react": "^4.7.0",
       "@reduxjs/toolkit": "^2.8.2",
       "@tailwindcss/vite": "^4.1.4",
+      "ag-grid-community": "^33.3.2",
+      "ag-grid-react": "^33.3.2",
       "apache-arrow": "^17.0.0",
       "clsx": "^2.1.1",
       "framer-motion": "^12.9.2",
