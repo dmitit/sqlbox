@@ -3,6 +3,7 @@ import { addQuery } from '@/core/store/output.slice';
 // import { setTables } from '@/core/store/db.slice';
 import { addToast } from '@heroui/react';
 import { useDispatch } from 'react-redux';
+import * as arrow from 'apache-arrow';
 
 export const useRunQuery = () => {
    const { connection } = useDuckDBConnection();
@@ -15,7 +16,7 @@ export const useRunQuery = () => {
          }
 
          const timestamp = Date.now();
-         const result = await connection.query(sql);
+         const result = await connection.query<{ id: arrow.Int32 }>(sql);
          console.log(result);
 
          dispatch(addQuery({ duration: 0, query: sql, timestamp }));

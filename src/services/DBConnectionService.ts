@@ -1,4 +1,5 @@
 import * as duckdb from '@duckdb/duckdb-wasm';
+import * as arrow from 'apache-arrow';
 
 export class DBConnectionService {
    private db: duckdb.AsyncDuckDB;
@@ -12,9 +13,15 @@ export class DBConnectionService {
       this.connection = await this.db.connect();
    }
 
-   public async query(sql: string) {
+   public async query<T extends { [key: string]: arrow.DataType }>(
+      sql: string,
+   ) {
       if (!this.connection) throw new Error('No connection');
-      return this.connection.query(sql);
+
+      const result = await this.connection.query<T>(sql);
+      const rows = result.toArray().map((row) => row.toJSON() as T);
+
+      return rows;
    }
 
    public async close() {
