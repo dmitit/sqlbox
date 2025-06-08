@@ -2,12 +2,7 @@ import PrimaryHeaderLogin from '@/ui/PrimaryHeaderLogin';
 import DefaultLogo from '@/ui/PrimaryLogo';
 import PrimaryNavLink from '@/ui/PrimaryNavLink';
 import {
-   Avatar,
    Button,
-   Dropdown,
-   DropdownItem,
-   DropdownMenu,
-   DropdownTrigger,
    Navbar,
    NavbarBrand,
    NavbarContent,

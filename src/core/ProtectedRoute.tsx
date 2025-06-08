@@ -1,22 +1,14 @@
-import { Link, Navigate, Outlet, useLocation } from 'react-router';
+import { Link, Outlet } from 'react-router';
 import { selectIsAuthenticated } from '@/core/store/auth.slice';
 import { useSelector } from 'react-redux';
 import PrimaryContainer from '@/ui/PrimaryContainer';
 import { LogIn } from 'lucide-react';
 import PrimaryHeaderLogin from '@/ui/PrimaryHeaderLogin';
-import { Button } from '@heroui/react';
 
 const ProtectedRoute = () => {
    const isAuthenticated = useSelector(selectIsAuthenticated);
-   const location = useLocation();
 
    if (!isAuthenticated) {
-      // Redirect them to the /login page, but save the current location they were
-      // trying to go to when they were redirected. This allows us to send them
-      // along to that page after they login, which is a nicer user experience
-      // than dropping them off on the home page.
-      // You can create a dedicated login page or redirect to home.
-      // For now, let's redirect to home.
       return (
          <div className="bg-white dark:bg-gray-900 flex flex-col min-h-screen">
             <PrimaryContainer className="py-8 text-center flex-grow flex flex-col items-center justify-center">

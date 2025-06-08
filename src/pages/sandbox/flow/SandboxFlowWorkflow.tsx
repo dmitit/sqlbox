@@ -1,4 +1,4 @@
-import SandboxFlowSidebar from '@/pages/sandbox/flow/SandboxFlowSidebar';
+// import SandboxFlowSidebar from '@/pages/sandbox/flow/SandboxFlowSidebar';
 import { Panel, PanelGroup } from 'react-resizable-panels';
 
 const SandboxFlowWorkflow = () => {
