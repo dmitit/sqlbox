@@ -8,7 +8,7 @@ const SandboxFlowWorkflow = () => {
          // autoSaveId="sandbox-editor-main"
          // storage={localStorage}
       >
-         <SandboxFlowSidebar />
+         {/* <SandboxFlowSidebar /> */}
 
          <Panel defaultSize={20} minSize={10} collapsible>
             <div className="h-full w-full"></div>

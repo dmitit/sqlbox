@@ -1,5 +1,6 @@
 import dbSlice from '@/core/store/db.slice';
 import outputSlice from '@/core/store/output.slice';
+import authSlice from '@/core/store/auth.slice'; // Import the auth slice reducer
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/es/storage';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
@@ -8,6 +9,7 @@ import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 export type RootState = {
    db: ReturnType<typeof dbSlice>;
    output: ReturnType<typeof outputSlice>;
+   auth: ReturnType<typeof authSlice>;
 };
 
 const persistConfig: PersistConfig<RootState> = {
@@ -15,11 +17,13 @@ const persistConfig: PersistConfig<RootState> = {
    version: 1,
    storage: storage,
    stateReconciler: autoMergeLevel2,
+   whitelist: ['db', 'output', 'auth'],
 };
 
 const rootReducer = combineReducers({
    db: dbSlice,
    output: outputSlice,
+   auth: authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
