@@ -2,43 +2,43 @@
 // import { getItem } from '@/utils/useLocalStorage';
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// export interface QueryMeta {
-//    timestamp: number;
-//    query: string;
-//    duration: number;
-// }
+import { RootState } from '@/core/store/store';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// interface DBState {
-//    queryHistory: QueryMeta[];
-//    tables: string[];
-//    status: 'idle' | 'pending' | 'fulfilled' | 'error';
-// }
+export interface TableColumnMeta {
+   cid: number;
+   default_value: string | number | null;
+   name: string;
+   nullable: boolean;
+   pk: boolean;
+   type: string;
+}
 
-// const initialState: DBState = {
-//    queryHistory: (getItem('queryHistory') as QueryMeta[]) || [],
-//    tables: [],
-//    status: 'idle',
-// };
+export interface TableMeta {
+   name: string;
+   columns: TableColumnMeta[];
+}
 
-// const dbSlice = createSlice({
-//    name: 'db',
-//    initialState,
-//    reducers: {
-//       setTables: (state, action: PayloadAction<string[]>) => {
-//          console.log('Setting tables:', action.payload);
-//          state.tables = action.payload;
-//       },
-//       addQuery: (state, action: PayloadAction<QueryMeta>) => {
-//          state.queryHistory.push(action.payload);
-//          if (state.queryHistory.length > 20) {
-//             state.queryHistory.shift();
-//          }
-//       },
-//    },
-// });
+interface DBState {
+   tables: TableMeta[];
+}
 
-// export const { setTables, addQuery } = dbSlice.actions;
+const initialState: DBState = {
+   tables: [],
+};
 
-// export const selectQueryHistory = (state: RootState) => state.db.queryHistory;
+const dbSlice = createSlice({
+   name: 'db',
+   initialState,
+   reducers: {
+      setTables: (state, action: PayloadAction<TableMeta[]>) => {
+         state.tables = action.payload;
+      },
+   },
+});
 
-// export default dbSlice.reducer;
+export const selectTables = (state: RootState) => state.db.tables;
+
+export const { setTables } = dbSlice.actions;
+
+export default dbSlice.reducer;

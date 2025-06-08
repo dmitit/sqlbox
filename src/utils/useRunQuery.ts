@@ -1,5 +1,7 @@
 import { useDuckDBConnection } from '@/core/DuckDBConnectionProvider';
+import { setTables } from '@/core/store/db.slice';
 import { addQuery } from '@/core/store/output.slice';
+import { fetchTables } from '@/utils/fetchTables';
 // import { setTables } from '@/core/store/db.slice';
 import { addToast } from '@heroui/react';
 import { useDispatch } from 'react-redux';
@@ -19,6 +21,9 @@ export const useRunQuery = () => {
          console.log(result);
 
          dispatch(addQuery({ duration: 0, query: sql, timestamp, result }));
+
+         const tables = await fetchTables(connection);
+         dispatch(setTables(tables));
       } catch (error) {
          addToast({
             title: 'Error',

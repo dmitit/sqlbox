@@ -1,4 +1,4 @@
-// import dbSlice from '@/core/store/db.slice';
+import dbSlice from '@/core/store/db.slice';
 import outputSlice from '@/core/store/output.slice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/es/storage';
@@ -6,7 +6,7 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 
 export type RootState = {
-   // db: ReturnType<typeof dbSlice>;
+   db: ReturnType<typeof dbSlice>;
    output: ReturnType<typeof outputSlice>;
 };
 
@@ -18,7 +18,7 @@ const persistConfig: PersistConfig<RootState> = {
 };
 
 const rootReducer = combineReducers({
-   // db: dbSlice,
+   db: dbSlice,
    output: outputSlice,
 });
 
