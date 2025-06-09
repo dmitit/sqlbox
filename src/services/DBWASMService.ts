@@ -1,8 +1,8 @@
 import * as duckdb from '@duckdb/duckdb-wasm';
-import mvp_duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url';
-import mvp_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url';
-import eh_duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url';
-import eh_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url';
+// import mvp_duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url';
+// import mvp_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url';
+// import eh_duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url';
+// import eh_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url';
 
 export class DBWASMService {
    private _db: duckdb.AsyncDuckDB | null = null;
@@ -15,12 +15,13 @@ export class DBWASMService {
 
    async initialize() {
       try {
-         const MANUAL_BUNDLES: duckdb.DuckDBBundles = {
-            mvp: { mainModule: mvp_duckdb_wasm, mainWorker: mvp_worker },
-            eh: { mainModule: eh_duckdb_wasm, mainWorker: eh_worker },
-         };
+         const bundles = duckdb.getJsDelivrBundles();
+         // const MANUAL_BUNDLES: duckdb.DuckDBBundles = {
+         //    mvp: { mainModule: mvp_duckdb_wasm, mainWorker: mvp_worker },
+         //    eh: { mainModule: eh_duckdb_wasm, mainWorker: eh_worker },
+         // };
 
-         const bundle = await duckdb.selectBundle(MANUAL_BUNDLES);
+         const bundle = await duckdb.selectBundle(bundles);
 
          // Handled
          if (!bundle.mainWorker) throw new Error('Worker not found');
