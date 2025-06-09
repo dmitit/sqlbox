@@ -17,6 +17,7 @@ export const DuckDBConnectionProvider = ({
 }: {
    children: React.ReactNode;
 }) => {
+   console.log('DuckDBConnectionProvider initializing');
    const { db, isLoading: isDuckDBLoading, error: duckDBError } = useDuckDB(); // Используем useDuckDB
    const [connection, setConnection] = useState<DBConnectionService | null>(
       null,
@@ -25,6 +26,7 @@ export const DuckDBConnectionProvider = ({
    const [error, setError] = useState<Error | null>(null);
 
    useEffect(() => {
+      console.log('DuckDBConnectionProvider useEffect triggered');
       if (isDuckDBLoading) {
          setIsLoading(true);
          return;
@@ -46,11 +48,17 @@ export const DuckDBConnectionProvider = ({
          return;
       }
 
-      const dbConnection = new DBConnectionService(db.db);
+      let dbConnection: DBConnectionService | null = null;
 
       const initConnection = async () => {
          setIsLoading(true);
+         setConnection(null);
+         setError(null);
+
          try {
+            const dbInstance = db.db;
+
+            dbConnection = new DBConnectionService(dbInstance);
             await dbConnection.initialize();
             setConnection(dbConnection);
             setError(null);
@@ -75,7 +83,7 @@ export const DuckDBConnectionProvider = ({
       initConnection();
 
       return () => {
-         console.log('Closing DuckDB connection:', dbConnection);
+         console.log('Closing DuckDBConnectionProvider:', dbConnection);
          if (dbConnection) {
             dbConnection.close();
          }

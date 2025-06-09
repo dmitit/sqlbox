@@ -1,8 +1,6 @@
-import { selectTables } from '@/core/store/db.slice';
-import { stateToSQL } from '@/services/DBSQLHelper';
+import { DBConnectionService } from '@/services/DBConnectionService';
 import { DBWASMService } from '@/services/DBWASMService';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const DuckDBContext = createContext<{
    db: DBWASMService | null;
@@ -10,22 +8,37 @@ const DuckDBContext = createContext<{
    error: Error | null;
 }>({ db: null, isLoading: false, error: null });
 
-export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
+export const DuckDBProvider = ({
+   children,
+   initialSQL,
+}: {
+   children: React.ReactNode;
+   initialSQL?: string;
+}) => {
    const [db, setDB] = useState<DBWASMService | null>(null);
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [error, setError] = useState<Error | null>(null);
-   const tables = useSelector(selectTables);
-   console.log('tables: ', tables);
-   const sqldb = stateToSQL(tables);
-   console.log('sqldb: ', sqldb);
 
    useEffect(() => {
+      console.log('DuckDBProvider initializing');
       const dbwasm = new DBWASMService();
 
       const initDuckDB = async () => {
          try {
+            setIsLoading(true);
+            setDB(null);
+            setError(null);
+
             await dbwasm.initialize();
             setDB(dbwasm);
+
+            const connection = new DBConnectionService(dbwasm.db);
+
+            if (initialSQL) {
+               await connection.initialize();
+               await connection.query(initialSQL);
+               await connection.close();
+            }
          } catch (error) {
             if (error instanceof Error) {
                // Handled
@@ -46,9 +59,10 @@ export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
       initDuckDB();
 
       return () => {
+         console.log('DuckDBProvider cleaning up');
          dbwasm.cleanup();
       };
-   }, []);
+   }, [initialSQL]);
 
    const contextValue = useMemo(
       () => ({ db, isLoading, error }),
