@@ -22,8 +22,8 @@ export default function ContactPage() {
             />
          ),
          label: 'Telegram',
-         value: '@dmithead',
-         href: 'https://t.me/dmithead',
+         value: '@dmitrevnik',
+         href: 'https://t.me/dmitrevnik',
       },
       {
          icon: (
@@ -33,8 +33,8 @@ export default function ContactPage() {
             />
          ),
          label: 'GitHub',
-         value: 'dmitit',
-         href: 'https://github.com/dmitit',
+         value: 'dmitrevnik',
+         href: 'https://github.com/dmitrevnik',
       },
       {
          icon: (
