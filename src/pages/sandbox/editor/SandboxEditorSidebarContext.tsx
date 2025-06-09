@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
-export type SandboxEditorSidebarPanel = 'schemas' | 'databases' | null;
+export type SandboxEditorSidebarPanel = 'schemas' | 'queryHistory' | null;
 
 interface SandboxEditorSidebarContextType {
    activePanel: SandboxEditorSidebarPanel;

@@ -1,6 +1,6 @@
 import { useRef, useState, useLayoutEffect } from 'react';
 import SandboxSidebarButton from '@/pages/sandbox/_components/SandboxSidebarButton';
-import { Database, Download, Table2 } from 'lucide-react';
+import { Database, Download, History, Table2 } from 'lucide-react';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
 
 const SandboxEditorSidebar = () => {
@@ -38,11 +38,11 @@ const SandboxEditorSidebar = () => {
 
             <SandboxSidebarButton
                label="Databases"
-               ref={activePanel === 'databases' ? activeButtonRef : null}
-               isActive={activePanel === 'databases'}
-               onClick={() => toggleActivePanel('databases')}
+               ref={activePanel === 'queryHistory' ? activeButtonRef : null}
+               isActive={activePanel === 'queryHistory'}
+               onClick={() => toggleActivePanel('queryHistory')}
             >
-               <Database />
+               <History />
             </SandboxSidebarButton>
 
             <SandboxSidebarButton

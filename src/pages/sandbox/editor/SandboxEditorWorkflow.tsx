@@ -1,6 +1,6 @@
-import DatabasesList from '@/features/DatabasesList';
 import QueryInput from '@/features/query-input/QueryInput';
 import QueryOutput from '@/features/query-output/QueryOutput';
+import QueryHistory from '@/features/QueryHistory';
 import SchemasList from '@/features/SchemaList';
 import SandboxEditorSidebar from '@/pages/sandbox/editor/SandboxEditorSidebar';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
@@ -31,25 +31,25 @@ const SandboxEditorWorkflow = () => {
    return (
       <PanelGroup
          direction="horizontal"
-         // autoSaveId="sandbox-editor-main"
-         // storage={localStorage}
+         autoSaveId="sandbox-editor-main"
+         storage={localStorage}
       >
          <SandboxEditorSidebar />
 
-         <Panel defaultSize={20} minSize={10} collapsible ref={ref}>
+         <Panel defaultSize={40} minSize={20} collapsible ref={ref}>
             <div className="h-full w-full">
                {activePanel === 'schemas' && <SchemasList />}
-               {activePanel === 'databases' && <DatabasesList />}
+               {activePanel === 'queryHistory' && <QueryHistory />}
             </div>
          </Panel>
 
          {activePanel !== null && <DefaultResizeHandler className="w-[2px]" />}
 
-         <Panel defaultSize={80} minSize={10} collapsible>
+         <Panel defaultSize={80} minSize={30} collapsible>
             <PanelGroup
                direction="vertical"
-               // autoSaveId="sandbox-editor-codearea"
-               // storage={localStorage}
+               autoSaveId="sandbox-editor-codearea"
+               storage={localStorage}
             >
                <Panel defaultSize={50}>
                   <div className="h-full w-full">
