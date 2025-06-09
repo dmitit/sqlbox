@@ -148,10 +148,10 @@ const QueryInput = () => {
                >
                   <div className="flex items-center gap-2">
                      <span>Run</span>
-                     <Kbd
+                     {/* <Kbd
                         className="rounded bg-transparent border-none py-0 text-white"
                         keys={['ctrl', 'enter']}
-                     />
+                     /> */}
                   </div>
                </Button>
             </div>

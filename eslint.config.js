@@ -26,6 +26,7 @@ export default tseslint.config(
          '@typescript-eslint/no-explicit-any': 'warn',
          '@typescript-eslint/no-empty-object-type': 'off',
          '@typescript-eslint/no-unused-vars': 'warn',
+         '@typescript-eslint/ban-ts-comment': 'warn',
       },
    },
 );

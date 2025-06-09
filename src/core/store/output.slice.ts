@@ -13,9 +13,17 @@ export interface OutputMeta {
    result: OutputResult[];
 }
 
+interface OutputState {
+   queries: OutputMeta[];
+   activeOutputTimestamp: number | null;
+}
+
 const MAX_QUERIES = 6;
 
-const initialState: OutputMeta[] = [];
+const initialState: OutputState = {
+   queries: [],
+   activeOutputTimestamp: null,
+};
 
 const outputSlice = createSlice({
    name: 'output',
@@ -31,31 +39,45 @@ const outputSlice = createSlice({
          }>,
       ) => {
          const { timestamp, duration, query, result } = action.payload;
-         state.unshift({
+         if (state.queries.length > MAX_QUERIES) {
+            state.queries.shift();
+         }
+         state.queries.push({
             timestamp,
             duration,
             query,
             result,
             name: 'Result Check',
          });
-         if (state.length > MAX_QUERIES) {
-            state.pop();
-         }
+         state.activeOutputTimestamp = timestamp;
       },
       removeQuery: (state, action: PayloadAction<number>) => {
          const timestamp = action.payload;
-         const index = state.findIndex(
+         const index = state.queries.findIndex(
             (output) => output.timestamp === timestamp,
          );
          if (index !== -1) {
-            state.splice(index, 1);
+            state.queries.splice(index, 1);
          }
+
+         if (state.activeOutputTimestamp === timestamp) {
+            state.activeOutputTimestamp = null;
+         }
+      },
+      setActiveOutputTimestamp: (
+         state,
+         action: PayloadAction<number | null>,
+      ) => {
+         state.activeOutputTimestamp = action.payload;
       },
    },
 });
 
-export const selectOutputQueries = (state: RootState) => state.output;
+export const selectOutputQueries = (state: RootState) => state.output.queries;
+export const selectActiveOutputTimestamp = (state: RootState) =>
+   state.output.activeOutputTimestamp;
 
-export const { addQuery, removeQuery } = outputSlice.actions;
+export const { addQuery, removeQuery, setActiveOutputTimestamp } =
+   outputSlice.actions;
 
 export default outputSlice.reducer;

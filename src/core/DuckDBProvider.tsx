@@ -1,5 +1,8 @@
+import { selectTables } from '@/core/store/db.slice';
+import { stateToSQL } from '@/services/DBSQLHelper';
 import { DBWASMService } from '@/services/DBWASMService';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const DuckDBContext = createContext<{
    db: DBWASMService | null;
@@ -11,6 +14,10 @@ export const DuckDBProvider = ({ children }: { children: React.ReactNode }) => {
    const [db, setDB] = useState<DBWASMService | null>(null);
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [error, setError] = useState<Error | null>(null);
+   const tables = useSelector(selectTables);
+   console.log('tables: ', tables);
+   const sqldb = stateToSQL(tables);
+   console.log('sqldb: ', sqldb);
 
    useEffect(() => {
       const dbwasm = new DBWASMService();
