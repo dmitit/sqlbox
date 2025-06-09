@@ -1,6 +1,6 @@
 import { useRef, useState, useLayoutEffect } from 'react';
 import SandboxSidebarButton from '@/pages/sandbox/_components/SandboxSidebarButton';
-import { Database, Download, History, Table2 } from 'lucide-react';
+import { Download, History, Table2 } from 'lucide-react';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
 
 const SandboxEditorSidebar = () => {

@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
    selectTables,
    TableMeta,
    TableColumnMeta,
 } from '@/core/store/db.slice';
 import {
-   MoreHorizontal,
    ChevronRight,
    ChevronDown,
    Database,

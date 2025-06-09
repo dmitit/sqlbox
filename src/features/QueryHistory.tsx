@@ -7,7 +7,7 @@ import {
 } from '@/core/store/queryHistory.slice';
 import { useRunQuery } from '@/utils/useRunQuery';
 import { addToast, Button } from '@heroui/react';
-import { History, Play, Trash2, ListX, Copy } from 'lucide-react'; // Added Copy
+import { Play, Trash2, ListX, Copy } from 'lucide-react'; // Added Copy
 import { formatDistanceToNow } from 'date-fns';
 // Assuming you have a toast notification system, you might need to import it
 // import { useToast } from '@/hooks/useToast'; // Example, adjust if you have one
