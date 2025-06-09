@@ -1,6 +1,7 @@
 import { useDuckDBConnection } from '@/core/DuckDBConnectionProvider';
 import { setTables } from '@/core/store/db.slice';
 import { addQuery } from '@/core/store/output.slice';
+import { addQueryToHistory } from '@/core/store/queryHistory.slice';
 import { SQLToState } from '@/services/DBSQLHelper';
 // import { setTables } from '@/core/store/db.slice';
 import { addToast } from '@heroui/react';
@@ -24,6 +25,8 @@ export const useRunQuery = () => {
 
          const tables = await SQLToState(connection);
          dispatch(setTables(tables));
+
+         dispatch(addQueryToHistory({ sql, timestamp }));
       } catch (error) {
          addToast({
             title: 'Error',

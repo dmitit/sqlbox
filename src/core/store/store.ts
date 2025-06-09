@@ -1,6 +1,7 @@
 import dbSlice from '@/core/store/db.slice';
 import outputSlice from '@/core/store/output.slice';
 import authSlice from '@/core/store/auth.slice'; // Import the auth slice reducer
+import queryHistorySlice from '@/core/store/queryHistory.slice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/es/storage';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
@@ -10,6 +11,7 @@ export type RootState = {
    db: ReturnType<typeof dbSlice>;
    output: ReturnType<typeof outputSlice>;
    auth: ReturnType<typeof authSlice>;
+   queryHistory: ReturnType<typeof queryHistorySlice>;
 };
 
 const persistConfig: PersistConfig<RootState> = {
@@ -17,13 +19,14 @@ const persistConfig: PersistConfig<RootState> = {
    version: 1,
    storage: storage,
    stateReconciler: autoMergeLevel2,
-   whitelist: ['db', 'output', 'auth'],
+   whitelist: ['db', 'output', 'auth', 'queryHistory'],
 };
 
 const rootReducer = combineReducers({
    db: dbSlice,
    output: outputSlice,
    auth: authSlice,
+   queryHistory: queryHistorySlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

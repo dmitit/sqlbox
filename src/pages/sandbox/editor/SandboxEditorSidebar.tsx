@@ -37,7 +37,7 @@ const SandboxEditorSidebar = () => {
             </SandboxSidebarButton>
 
             <SandboxSidebarButton
-               label="Databases"
+               label="Query History"
                ref={activePanel === 'queryHistory' ? activeButtonRef : null}
                isActive={activePanel === 'queryHistory'}
                onClick={() => toggleActivePanel('queryHistory')}
