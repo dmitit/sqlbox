@@ -2,11 +2,15 @@ import { useRef, useState, useLayoutEffect } from 'react';
 import SandboxSidebarButton from '@/pages/sandbox/_components/SandboxSidebarButton';
 import { Download, History, Table2 } from 'lucide-react';
 import { useEditorSidebar } from '@/pages/sandbox/editor/SandboxEditorSidebarContext';
+import { useSelector } from 'react-redux';
+import { selectTables } from '@/core/store/db.slice';
+import { stateToSQL } from '@/services/DBSQLHelper';
 
 const SandboxEditorSidebar = () => {
    const { activePanel, toggleActivePanel } = useEditorSidebar();
    const activeButtonRef = useRef<HTMLButtonElement>(null);
    const [highlightStyle, setHighlightStyle] = useState({ top: 0, height: 0 });
+   const tables = useSelector(selectTables);
 
    useLayoutEffect(() => {
       if (activeButtonRef.current && activePanel) {
@@ -47,7 +51,18 @@ const SandboxEditorSidebar = () => {
 
             <SandboxSidebarButton
                label="Export"
-               onClick={() => alert('Export...')}
+               onClick={() => {
+                  const sql = stateToSQL(tables);
+                  const blob = new Blob([sql], { type: 'application/sql' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'database_export.sql';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+               }}
             >
                <Download />
             </SandboxSidebarButton>
